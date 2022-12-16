@@ -1,5 +1,8 @@
-﻿using LH.App.Data;
+﻿using AutoMapper;
+using LH.App.Data;
+using LH.Business.Interfaces;
 using LH.Date.Context;
+using LH.Date.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,14 +37,21 @@ namespace LH.App
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<AppContext>(options =>
+            services.AddDbContext<AppFornecedorContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<ApplicationDbContext>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepositoty>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

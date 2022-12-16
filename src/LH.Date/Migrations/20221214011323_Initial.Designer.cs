@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using AppContext = LH.Date.Context.AppContext;
+using AppFornecedorContext = LH.Date.Context.AppFornecedorContext;
 
 namespace LH.Date.Migrations
 {
-    [DbContext(typeof(AppContext))]
+    [DbContext(typeof(AppFornecedorContext))]
     [Migration("20221214011323_Initial")]
     partial class Initial
     {

@@ -3,11 +3,11 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using AppContext = LH.Date.Context.AppContext;
+using AppFornecedorContext = LH.Date.Context.AppFornecedorContext;
 
 namespace LH.Date.Migrations
 {
-    [DbContext(typeof(AppContext))]
+    [DbContext(typeof(AppFornecedorContext))]
     partial class AppContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

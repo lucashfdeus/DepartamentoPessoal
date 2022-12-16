@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace LH.Date.Context
 {
-    public class AppContext : DbContext
+    public class AppFornecedorContext : DbContext
     {
-        public AppContext(DbContextOptions options) : base(options)
+        public AppFornecedorContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -25,7 +25,7 @@ namespace LH.Date.Context
                 property.Relational().ColumnType = "varchar(100)";
 
             /*Essa configuração será para registar todos os Mappings*/
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppContext).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppFornecedorContext).Assembly);
 
             /*Desabilitar o uso do DELETE ON CASCADE*/
             foreach(var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;

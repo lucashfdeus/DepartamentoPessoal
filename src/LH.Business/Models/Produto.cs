@@ -15,8 +15,5 @@ namespace LH.Business.Models
 
         /*EF Relations*/
         public Fornecedor Fornecedor { get; set; }
-
-
-
     }
 }
