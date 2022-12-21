@@ -6,10 +6,7 @@ namespace LH.Date.Context
 {
     public class AppFornecedorContext : DbContext
     {
-        public AppFornecedorContext(DbContextOptions options) : base(options)
-        {
-
-        }
+        public AppFornecedorContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
@@ -28,7 +25,8 @@ namespace LH.Date.Context
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppFornecedorContext).Assembly);
 
             /*Desabilitar o uso do DELETE ON CASCADE*/
-            foreach(var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) relationship
+            .DeleteBehavior = DeleteBehavior.ClientSetNull;
 
             base.OnModelCreating(modelBuilder);
         }

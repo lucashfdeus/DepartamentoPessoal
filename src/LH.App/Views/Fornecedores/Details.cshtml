@@ -1,14 +1,13 @@
 ﻿@model LH.App.ViewModels.FornecedorViewModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Fornecedor";
 }
 
-<h2>Details</h2>
+<h1>@ViewData["Title"]</h1>
+<hr />
 
 <div>
-    <h4>FornecedorViewModel</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
@@ -37,6 +36,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.id"><spam class="fa fa-pencil-alt"></spam> Editar</a>
+    <a class="btn btn-info" asp-action="Index"><span class="fa fa-arrow-left"></span> Voltar</a>
 </div>

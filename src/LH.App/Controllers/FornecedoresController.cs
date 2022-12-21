@@ -9,7 +9,6 @@ using System.Collections.Generic;
 
 namespace LH.App.Controllers
 {
-
     public class FornecedoresController : BaseController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
@@ -107,8 +106,7 @@ namespace LH.App.Controllers
             var fornecedorViewModel = await ObterFornecedorEndereco(id);
 
             if (fornecedorViewModel == null)
-                return NotFound(); ;
-
+                return NotFound();
 
             await _fornecedorRepository.Remover(id);
             return RedirectToAction("Index");

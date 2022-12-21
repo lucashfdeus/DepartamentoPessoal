@@ -25,6 +25,7 @@ namespace LH.App.ViewModels
         [StringLength(200, ErrorMessage = "O campo precisa ter entre {1} e {2} caracteres!", MinimumLength = 1)]
         public string Descricao { get; set; }
 
+        [DisplayName("Imagem do Produto")]
         public IFormFile ImagemUpload { get; set; }
 
         public string Imagem { get; set; }
