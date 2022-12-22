@@ -55,7 +55,16 @@ namespace LH.App.Controllers
             produtoViewModel = await PopularFornecedores(produtoViewModel);
             if (!ModelState.IsValid) 
                 return View(produtoViewModel);
-                                
+
+            //Criando nome da imagem unico, concatenando o guid + nome
+            var imgPrefixo = Guid.NewGuid() + "_";
+
+            if (!await UploadArquivo(produtoViewModel.ImagemUpload, imgPrefixo))
+            {
+                return View(produtoViewModel);
+            }
+
+            produtoViewModel.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;                                
             await _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoViewModel));          
 
             return RedirectToAction("Index");
@@ -80,10 +89,32 @@ namespace LH.App.Controllers
             if (id != produtoViewModel.id)
                 return NotFound();
 
+           var produtoAtualizacao = await ObterProduto(id);
+            produtoViewModel.Fornecedor = produtoAtualizacao.Fornecedor;
+            produtoViewModel.Imagem = produtoAtualizacao.Imagem;
+
             if (!ModelState.IsValid)
                 return View(produtoViewModel);
 
-            await _produtoRepository.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+            if(produtoViewModel.ImagemUpload != null)
+            {
+                //Criando nome da imagem unico, concatenando o guid + nome
+                var imgPrefixo = Guid.NewGuid() + "_";
+
+                if (!await UploadArquivo(produtoViewModel.ImagemUpload, imgPrefixo))
+                {
+                    return View(produtoViewModel);
+                }
+
+                produtoAtualizacao.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
+            }
+
+            produtoAtualizacao.Nome = produtoViewModel.Nome;
+            produtoAtualizacao.Descricao = produtoViewModel.Descricao;
+            produtoAtualizacao.Valor = produtoViewModel.Valor;
+            produtoAtualizacao.Ativo = produtoViewModel.Ativo;
+
+            await _produtoRepository.Atualizar(_mapper.Map<Produto>(produtoAtualizacao));
 
             return RedirectToAction("Index");
 
@@ -131,7 +162,7 @@ namespace LH.App.Controllers
         {
             if (arquivo.Length <= 0) return false;
 
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", imgPrefixo + arquivo.FileName);
 
             if (System.IO.File.Exists(path))
             {
@@ -139,6 +170,7 @@ namespace LH.App.Controllers
                 return false;
             }
 
+            //Gravação de imagem em Disco HDD, SSD
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await arquivo.CopyToAsync(stream);
