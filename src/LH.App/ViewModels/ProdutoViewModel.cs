@@ -11,7 +11,7 @@ namespace LH.App.ViewModels
     public class ProdutoViewModel
     {
         [Key]
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [DisplayName("Fornecedor")]

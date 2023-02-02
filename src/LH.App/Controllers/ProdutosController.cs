@@ -86,7 +86,7 @@ namespace LH.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
         {
-            if (id != produtoViewModel.id)
+            if (id != produtoViewModel.Id)
                 return NotFound();
 
            var produtoAtualizacao = await ObterProduto(id);

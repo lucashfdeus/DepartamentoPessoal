@@ -75,7 +75,7 @@ namespace LH.App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, FornecedorViewModel fornecedorViewModel)
         {
-            if (id != fornecedorViewModel.id)
+            if (id != fornecedorViewModel.Id)
                 return NotFound();
 
             if (!ModelState.IsValid)

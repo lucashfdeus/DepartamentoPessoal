@@ -9,7 +9,7 @@ namespace LH.App.ViewModels
     public class FornecedorViewModel
     {
         [Key]
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [StringLength(100, ErrorMessage = "O campo precisa ter entre {1} e {2} caracteres!", MinimumLength = 1)]
