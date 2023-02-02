@@ -1,41 +1,40 @@
-﻿@model LH.App.ViewModels.FornecedorViewModel
+﻿@using LH.App.Extensions;
+@model LH.App.ViewModels.FornecedorViewModel
 
 @{
-    ViewData["Title"] = "Detalhes do Fornecedor";
+    ViewData["Title"] = "Detalhes";
 }
 
 <h1>@ViewData["Title"]</h1>
-<hr />
 
 <div>
-    <dl class="dl-horizontal">
-        <dt>
+    <h4>Informação somente leitura</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Documento)
         </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Documento)
+        <dd class="col-sm-10">
+            @this.FormataDocumento(Model.TipoFornecedor, Model.Documento)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TipoFornecedor)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TipoFornecedor)
-        </dd>
-        <dt>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ativo)
         </dt>
-        <dd>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Ativo)
         </dd>
     </dl>
 </div>
 <div>
-    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id"><spam class="fa fa-pencil-alt"></spam> Editar</a>
-    <a class="btn btn-info" asp-action="Index"><span class="fa fa-arrow-left"></span> Voltar</a>
+    <a class="btn btn-warning"  supress-by-claim-name="Fornecedor" supress-by-claim-value="Editar" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    <a class="btn btn-info" asp-action="Index">Voltar</a>
 </div>
+
+
+<partial name="_DetalhesEndereco" />
