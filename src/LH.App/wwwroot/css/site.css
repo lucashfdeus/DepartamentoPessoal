@@ -42,3 +42,10 @@ file,
 textarea {
     max-width: 400px;
 }
+
+/*footer {
+    position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+}*/
