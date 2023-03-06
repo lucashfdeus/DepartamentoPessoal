@@ -1,6 +1,8 @@
 ﻿using LH.App.Data;
 using LH.App.Extensions;
 using LH.Business.Interfaces;
+using LH.Business.Notificacoes;
+using LH.Business.Services;
 using LH.Date.Repository;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,10 @@ namespace LH.App.Configurations
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepositoty>();
             services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
+
+            services.AddScoped<INotificador, Notificador>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
 
             return services;
         }

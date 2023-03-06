@@ -16,4 +16,8 @@
     <ProjectReference Include="..\LH.Date\LH.Date.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Folder Include="wwwroot\imagens\" />
+	</ItemGroup>
+
 </Project>
