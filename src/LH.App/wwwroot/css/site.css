@@ -49,3 +49,9 @@ textarea {
     bottom: 0;
     width: 100%;
 }*/
+
+/*.apresentacaoHome {
+    display: flex;*/ /* para ativar o flexbox layout */
+    /*justify-content: center;*/ /* para centralizar os elementos horizontalmente */
+    /*align-items: center;*/ /* para centralizar os elementos verticalmente */
+/*}*/
