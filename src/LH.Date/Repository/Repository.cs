@@ -12,10 +12,10 @@ namespace LH.Date.Repository
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
-        protected readonly AppFornecedorContext Db;
+        protected readonly AppDpContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(AppFornecedorContext db)
+        public Repository(AppDpContext db)
         {
             Db = db;
             DbSet = db.Set<TEntity>();

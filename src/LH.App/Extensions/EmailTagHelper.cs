@@ -5,7 +5,7 @@ namespace LH.App.Extensions
 {
     public class EmailTagHelper : TagHelper
     {
-        public string EmailDomain { get; set; } = "desenvolvedor.io";
+        public string EmailDomain { get; set; } = "progress.dev";
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "a";

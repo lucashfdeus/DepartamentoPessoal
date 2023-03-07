@@ -33,8 +33,8 @@ namespace LH.App
         {
             services.AddIdentityConfiguration(Configuration);
 
-            services.AddDbContext<AppFornecedorContext>(options =>
-                options.UseSqlServer(
+            services.AddDbContext<AppDpContext>(options =>
+                options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(Startup));
