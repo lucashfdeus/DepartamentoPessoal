@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LH.Date.Migrations
 {
-    [DbContext(typeof(AppDpContext))]
-    partial class AppDpContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(AppRhContext))]
+    partial class AppRhContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

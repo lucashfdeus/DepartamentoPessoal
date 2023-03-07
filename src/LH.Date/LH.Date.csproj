@@ -16,8 +16,4 @@
     <ProjectReference Include="..\LH.Business\LH.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

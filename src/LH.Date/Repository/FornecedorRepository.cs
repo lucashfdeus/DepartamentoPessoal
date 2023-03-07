@@ -11,7 +11,7 @@ namespace LH.Date.Repository
 {
     public class FornecedorRepository : Repository<Fornecedor>, IFornecedorRepository
     {
-        public FornecedorRepository(AppDpContext context) : base(context) { }
+        public FornecedorRepository(AppRhContext context) : base(context) { }
 
         public async Task<Fornecedor> ObterFornecedorEndereco(Guid id)
         {

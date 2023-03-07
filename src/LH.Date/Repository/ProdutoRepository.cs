@@ -12,7 +12,7 @@ namespace LH.Date.Repository
 {
     public class ProdutoRepository : Repository<Produto>, IProdutoRepository
     {
-        public ProdutoRepository(AppDpContext context) : base(context){}
+        public ProdutoRepository(AppRhContext context) : base(context){}
 
         public async Task<Produto> ObterProdutosFornecedor(Guid id)
         {

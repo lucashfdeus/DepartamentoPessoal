@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LH.Date.Migrations
 {
-    [DbContext(typeof(AppDpContext))]
-    [Migration("20230307002622__inicial")]
+    [DbContext(typeof(AppRhContext))]
+    [Migration("20230307011238__inicial")]
     partial class _inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

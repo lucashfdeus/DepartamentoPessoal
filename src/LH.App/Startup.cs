@@ -33,7 +33,7 @@ namespace LH.App
         {
             services.AddIdentityConfiguration(Configuration);
 
-            services.AddDbContext<AppDpContext>(options =>
+            services.AddDbContext<AppRhContext>(options =>
                 options.UseSqlite(
                     Configuration.GetConnectionString("DefaultConnection")));
 
