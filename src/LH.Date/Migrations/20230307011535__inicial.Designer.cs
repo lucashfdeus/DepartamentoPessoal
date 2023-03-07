@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LH.Date.Migrations
 {
     [DbContext(typeof(AppRhContext))]
-    [Migration("20230307011238__inicial")]
+    [Migration("20230307011535__inicial")]
     partial class _inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
