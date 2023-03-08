@@ -44,6 +44,14 @@
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
                 </td>
             </tr>
-        }
+        }        
     </tbody>
 </table>
+
+    <form asp-controller="RegistroPonto" method="post" enctype="multipart/form-data" asp-action="ImportarRegistrosPonto" method="post">
+        <div class="form-group">
+            <label for="arquivo">Selecione o arquivo</label>
+            <input type="file" class="form-control-file" id="arquivo" name="arquivo">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>

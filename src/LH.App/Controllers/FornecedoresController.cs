@@ -11,11 +11,11 @@ namespace LH.App.Controllers
 {
     public class FornecedoresController : BaseController
     {
-        private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IRegistoProntoRepository _fornecedorRepository;
         private readonly IFornecedorService _fornecedorService;
         private readonly IMapper _mapper;
 
-        public FornecedoresController(IFornecedorRepository fornecedorRepository,
+        public FornecedoresController(IRegistoProntoRepository fornecedorRepository,
                                       IMapper mapper,
                                       IFornecedorService fornecedorService,
                                       INotificador notificador) : base(notificador)

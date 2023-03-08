@@ -11,6 +11,7 @@ namespace LH.App.AutoMapper
             CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();
             CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
+            CreateMap<RegistroPontoViewModel, RegistroPonto>().ReverseMap();
         }
     }
 }

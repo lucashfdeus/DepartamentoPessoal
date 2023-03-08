@@ -10,10 +10,10 @@ namespace LH.Business.Services
     public class FornecedorService : BaseService, IFornecedorService
     {
 
-        private readonly IFornecedorRepository _fornecedorRepository;
+        private readonly IRegistoProntoRepository _fornecedorRepository;
         private readonly IEnderecoRepository _enderecoRepository;
 
-        public FornecedorService(IFornecedorRepository fornecedorRepository,
+        public FornecedorService(IRegistoProntoRepository fornecedorRepository,
                                 IEnderecoRepository enderecoRepository,
                                 INotificador notificador) : base(notificador)
         {
