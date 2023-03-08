@@ -14,12 +14,12 @@ namespace LH.App.Controllers
     public class ProdutosController : BaseController
     {
         private readonly IProdutoRepository _produtoRepository;
-        private readonly IRegistoProntoRepository _fornecedorRepository;
+        private readonly IFornecedorRepository _fornecedorRepository;
         private readonly IProdutoService _produtoService;
         private readonly IMapper _mapper;
 
         public ProdutosController(IProdutoRepository produtoRepository,
-                                  IRegistoProntoRepository fornecedorRepository,
+                                  IFornecedorRepository fornecedorRepository,
                                   IProdutoService produtoService,
                                   IMapper mapper,
                                   INotificador notificador) : base(notificador)

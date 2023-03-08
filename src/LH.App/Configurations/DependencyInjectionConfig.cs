@@ -15,7 +15,7 @@ namespace LH.App.Configurations
         {
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IRegistoProntoRepository, RegistroPontoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IEnderecoRepository, EnderecoRepositoty>();
             services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
 
