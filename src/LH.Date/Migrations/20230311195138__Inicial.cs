@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LH.Date.Migrations
 {
-    public partial class _CriandoBancoDadosInicial : Migration
+    public partial class _Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,13 +58,13 @@ namespace LH.Date.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Funcionario",
+                name: "Funcionarios",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     DepartamentoId = table.Column<Guid>(nullable: false),
                     Codigo = table.Column<int>(nullable: false),
-                    Nome = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Nome = table.Column<string>(type: "varchar(200)", nullable: false),
                     TotalReceber = table.Column<decimal>(nullable: false),
                     HorasExtras = table.Column<decimal>(nullable: false),
                     HorasDebito = table.Column<decimal>(nullable: false),
@@ -74,9 +74,9 @@ namespace LH.Date.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Funcionario", x => x.Id);
+                    table.PrimaryKey("PK_Funcionarios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Funcionario_Departamentos_DepartamentoId",
+                        name: "FK_Funcionarios_Departamentos_DepartamentoId",
                         column: x => x.DepartamentoId,
                         principalTable: "Departamentos",
                         principalColumn: "Id",
@@ -139,8 +139,8 @@ namespace LH.Date.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Funcionario_DepartamentoId",
-                table: "Funcionario",
+                name: "IX_Funcionarios_DepartamentoId",
+                table: "Funcionarios",
                 column: "DepartamentoId");
 
             migrationBuilder.CreateIndex(
@@ -155,7 +155,7 @@ namespace LH.Date.Migrations
                 name: "Enderecos");
 
             migrationBuilder.DropTable(
-                name: "Funcionario");
+                name: "Funcionarios");
 
             migrationBuilder.DropTable(
                 name: "Produtos");

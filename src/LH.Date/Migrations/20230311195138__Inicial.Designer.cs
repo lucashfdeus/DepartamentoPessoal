@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LH.Date.Migrations
 {
     [DbContext(typeof(AppRhContext))]
-    [Migration("20230311183427__CriandoBancoDadosInicial")]
-    partial class _CriandoBancoDadosInicial
+    [Migration("20230311195138__Inicial")]
+    partial class _Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,7 +132,8 @@ namespace LH.Date.Migrations
                     b.Property<decimal>("HorasExtras");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("TotalReceber");
 
@@ -140,7 +141,7 @@ namespace LH.Date.Migrations
 
                     b.HasIndex("DepartamentoId");
 
-                    b.ToTable("Funcionario");
+                    b.ToTable("Funcionarios");
                 });
 
             modelBuilder.Entity("LH.Business.Models.Produto", b =>

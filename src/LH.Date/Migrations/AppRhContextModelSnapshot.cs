@@ -130,7 +130,8 @@ namespace LH.Date.Migrations
                     b.Property<decimal>("HorasExtras");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("varchar(100)");
+                        .IsRequired()
+                        .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("TotalReceber");
 
@@ -138,7 +139,7 @@ namespace LH.Date.Migrations
 
                     b.HasIndex("DepartamentoId");
 
-                    b.ToTable("Funcionario");
+                    b.ToTable("Funcionarios");
                 });
 
             modelBuilder.Entity("LH.Business.Models.Produto", b =>

@@ -3,6 +3,7 @@ using CsvHelper;
 using CsvHelper.TypeConversion;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System;
 
 namespace LH.App.Extensions
 {
@@ -13,6 +14,14 @@ namespace LH.App.Extensions
             string novoTexto = texto.Replace(",", ".");
             decimal valor = decimal.Parse(Regex.Replace(novoTexto, @"[^\d\.]", ""), CultureInfo.InvariantCulture);
             return base.ConvertFromString(valor.ToString(), row, memberMapData);
+        }
+    }
+
+    public sealed class ConverterHoras : DecimalConverter
+    {
+        public static TimeSpan AdicionarIntervalo(TimeSpan intervalo, TimeSpan tempo)
+        {
+            return tempo.Add(intervalo);
         }
     }
 }

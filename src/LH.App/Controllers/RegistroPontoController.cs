@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Newtonsoft.Json.Serialization;
 using LH.Business.Interfaces.Services;
+using LH.Business.Services;
 
 namespace LH.App.Controllers
 {
@@ -21,12 +22,16 @@ namespace LH.App.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IRegistroPontoService _registroPontoService;
+        private readonly IFuncionarioService _funcionarioService;
+        private readonly IDepartamentoService _departamentoService;
 
 
-        public RegistroPontoController(IMapper mapper, INotificador notificador, IRegistroPontoService registroPontoService) : base(notificador)
+        public RegistroPontoController(IMapper mapper, INotificador notificador, IRegistroPontoService registroPontoService, IFuncionarioService funcionarioService, IDepartamentoService departamentoService) : base(notificador)
         {
             _mapper = mapper;
             _registroPontoService = registroPontoService;
+            _funcionarioService = funcionarioService;
+            _departamentoService = departamentoService;
         }
 
         [HttpPost("processar-arquivos")]
@@ -63,13 +68,41 @@ namespace LH.App.Controllers
                 }
             }
 
-            
+            DateTimeOffset now = DateTimeOffset.Now;
+            int year = now.Year;
+
+            var departamento = new Departamento()
+            {
+                NomeDepartamento = "Teste T.I",
+                MesVigencia = "Março",
+                AnoVigencia = new DateTimeOffset(year, 1, 1, 0, 0, 0, now.Offset),
+                TotalPagar = 20000,
+                TotalDescontos = 0,
+                TotalExtras = 0
+            };
+
+            await _departamentoService.Adicionar(departamento);
+
+            var funcionario = new Funcionario()
+            {
+                Codigo = 1,
+                Nome = "Taynara Amorim",
+                TotalReceber = 10000,
+                HorasExtras = 0,
+                HorasDebito = 0,
+                DiasFalta = 0,
+                DiasExtras = 0,
+                DiasTrabalhados = 25,
+                DepartamentoId = departamento.Id,
+            };
+
+            await _funcionarioService.Adicionar(funcionario);
+
+            await _departamentoService.CalcularSalario();
 
             var registrosPontoSaida = _mapper.Map<List<RegistroPontoViewModel>>(registrosPonto);
 
-
-            return Json(registrosPontoSaida);
-            //return await DownloadRegistrosPontoJson(registrosPontoSaida, jsonSerializerSettings);
+            return await DownloadRegistrosPontoJson(registrosPontoSaida, jsonSerializerSettings);
 
         }
 
@@ -110,9 +143,7 @@ namespace LH.App.Controllers
             var fileContentResult = File(jsonBytes, "application/json", nomeArquivo);
             return await Task.FromResult(fileContentResult);
         }
-
-
-
+       
         private static string ObterDepartamento(List<string> arquivos, RegistroPonto dado)
         {
             foreach (var arquivo in arquivos)

@@ -3,6 +3,7 @@ using LH.Business.Interfaces.Repository;
 using LH.Business.Interfaces.Services;
 using LH.Business.Models;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace LH.Business.Services
@@ -11,28 +12,19 @@ namespace LH.Business.Services
     {
 
         private readonly IDepartamentoRepository _departamentoRepository;
+        private readonly IRegistroPontoRepository _registroPontoRepository;
 
         public DepartamentoService(IDepartamentoRepository departamentoRepository,
-                                  INotificador notificador) : base(notificador)
+                                  INotificador notificador,
+                                  IRegistroPontoRepository registroPontoRepository) : base(notificador)
         {
             _departamentoRepository = departamentoRepository;
+            _registroPontoRepository = registroPontoRepository;
         }
 
-        public async Task<Departamento> Adicionar(Departamento departamento)
+        public async Task Adicionar(Departamento departamento)
         {
-            var novoDepartamento = new Departamento()
-            {
-                NomeDepartamento = "Teste T.I",
-                MesVigencia = "Março"
-                               
-            };
-
-            departamento.NomeDepartamento = novoDepartamento.NomeDepartamento;
-            departamento.MesVigencia = novoDepartamento.MesVigencia;
-
-            var funcionarios = await _fun
-
-            return await departamento;
+            await _departamentoRepository.Adicionar(departamento);
         }
 
         public Task Atualizar(Departamento departamento)
@@ -48,6 +40,16 @@ namespace LH.Business.Services
         public void Dispose()
         {
             _departamentoRepository?.Dispose();
+        }
+
+        public async Task CalcularSalario()
+        {
+            var id = Guid.Parse("D42B2F38-43EC-4760-B10A-E91CFFD918C9");
+            var registroPonto = await _registroPontoRepository.ObterRegistroPonto(id);
+
+            //DateTime dataInicio = registroPonto.Entrada;
+            //DateTime dataFinal = registroPonto.Saida;
+            //var result = dataInicio - dataFinal;
         }
     }
 }
