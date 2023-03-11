@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace LH.Business.Models
 {
@@ -12,6 +13,11 @@ namespace LH.Business.Models
         public decimal TotalPagar { get; set; }
         public decimal TotalDescontos { get; set; }
         public decimal TotalExtras { get; set; }
-        public ICollection<Funcionario> Funcionarios { get; set; }
+        public IEnumerable<Funcionario> Funcionarios { get; set; }
     }
 }
+
+//IEnumerable interface de leitura
+
+
+//ICollection interface de gravação, que herda de IEnumerable.

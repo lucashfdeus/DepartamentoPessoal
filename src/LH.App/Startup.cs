@@ -34,7 +34,7 @@ namespace LH.App
             services.AddIdentityConfiguration(Configuration);
 
             services.AddDbContext<AppRhContext>(options =>
-                options.UseSqlite(
+                options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper(typeof(Startup));

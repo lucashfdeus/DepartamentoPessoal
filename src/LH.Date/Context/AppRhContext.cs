@@ -1,6 +1,8 @@
 ﻿using LH.Business.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Linq;
+using System.Xml;
 
 namespace LH.Date.Context
 {
@@ -11,6 +13,9 @@ namespace LH.Date.Context
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Fornecedor> Fornecedores { get; set; }
+        public DbSet<RegistroPonto> RegistroPontos { get; set; }
+        public DbSet<Departamento> Departamentos { get; set; }
+        public DbSet<Funcionario> Funcionarios { get; set; }
 
         //Registro dos Mappings
         protected override void OnModelCreating(ModelBuilder modelBuilder)

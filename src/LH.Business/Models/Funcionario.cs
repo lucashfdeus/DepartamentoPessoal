@@ -6,6 +6,7 @@ namespace LH.Business.Models
 {
     public class Funcionario : Entity
     {
+        public Guid DepartamentoId { get; set; }
         public int Codigo { get; set; }
         public string Nome { get; set; }
         public decimal TotalReceber { get; set; }
@@ -14,7 +15,7 @@ namespace LH.Business.Models
         public int DiasFalta { get; set; }
         public int DiasExtras { get; set; }
         public int DiasTrabalhados { get; set; }
-        public ICollection<RegistroPonto> RegistrosPontos { get; set; }
+        public Departamento Departamento { get; set; }
     }   
 
 }

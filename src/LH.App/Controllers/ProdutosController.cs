@@ -8,6 +8,7 @@ using AutoMapper;
 using LH.Business.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using LH.Business.Interfaces.Repository;
 
 namespace LH.App.Controllers
 {

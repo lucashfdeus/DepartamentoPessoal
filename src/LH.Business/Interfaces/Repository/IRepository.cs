@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LH.Business.Interfaces
+namespace LH.Business.Interfaces.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {

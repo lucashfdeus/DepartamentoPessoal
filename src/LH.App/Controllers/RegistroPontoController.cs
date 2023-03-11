@@ -1,107 +1,104 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System;
 using LH.Business.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Globalization;
 using CsvHelper;
-using LH.App.ViewModels;
-using System.Linq;
 using AutoMapper;
 using LH.Business.Interfaces;
-using Newtonsoft.Json.Serialization;
+using LH.App.Extensions;
+using System.Linq;
+using LH.App.ViewModels;
 using Newtonsoft.Json;
 using System.Text;
-using Microsoft.Extensions.Logging;
-using LH.App.Extensions;
-using System.Security.Cryptography;
+using Newtonsoft.Json.Serialization;
+using LH.Business.Interfaces.Services;
 
 namespace LH.App.Controllers
 {
     public class RegistroPontoController : BaseController
     {
         private readonly IMapper _mapper;
+        private readonly IRegistroPontoService _registroPontoService;
 
-        public RegistroPontoController(IMapper mapper, INotificador notificador) : base(notificador)
+
+        public RegistroPontoController(IMapper mapper, INotificador notificador, IRegistroPontoService registroPontoService) : base(notificador)
         {
             _mapper = mapper;
+            _registroPontoService = registroPontoService;
         }
 
-        //[Route("registar-ponto-colaboradores")]
-        //[HttpPost]
-        //public async Task<IActionResult> ImportarRegistrosPonto(IFormFile arquivo)
-        //{
-        //    if (arquivo == null || arquivo.Length == 0)
-        //    {
-        //        ModelState.AddModelError("arquivo", "Por favor, selecione um arquivo");
-        //        return View();
-        //    }
+        [HttpPost("processar-arquivos")]
+        public async Task<IActionResult> ProcessarArquivos(string caminhoPasta)
+        {
+            if (string.IsNullOrEmpty(caminhoPasta))
+            {
+                return BadRequest("O caminho da pasta não pode ser nulo ou vazio.");
+            }
 
-        //    var registrosPontoEntrada = new List<RegistroPonto>();
-        //    using (var streamReader = new StreamReader(arquivo.OpenReadStream()))
-        //    {
-        //        using (var csvReader = new CsvReader(streamReader))
-        //        {
-        //            csvReader.Configuration.Delimiter = ";";
-        //            csvReader.Configuration.HeaderValidated = null;
-        //            csvReader.Configuration.MissingFieldFound = null;
-        //            registrosPontoEntrada = csvReader.GetRecords<RegistroPonto>().ToList();
-        //        }
-        //    }
+            string caminhoFormatado = caminhoPasta.Replace(@"\", "/");
+            string[] arquivos = Directory.GetFiles(caminhoFormatado, "*.csv");
 
-        //    // Mapeia os objetos para a ViewModel correspondente
-        //    var registrosPontoSaida = _mapper.Map<List<RegistroPontoViewModel>>(registrosPontoEntrada);
+            if (arquivos.Length == 0)
+            {
+                return BadRequest("Não há arquivos CSV na pasta especificada.");
+            }
 
-        //    var jsonSerializerSettings = new JsonSerializerSettings
-        //    {
-        //        ContractResolver = new CamelCasePropertyNamesContractResolver(),
-        //        Formatting = Formatting.Indented
-        //    };
+            var registrosPonto = new List<RegistroPonto>();
+            var jsonSerializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                Formatting = Formatting.Indented
+            };
 
-        //    return await DownloadRegistrosPontoJson(registrosPontoSaida, jsonSerializerSettings);
-        //}
+            foreach (var arquivo in arquivos)
+            {
+                var registrosPontoArquivo = await ImportarRegistrosPonto(arquivo);
+                registrosPonto.AddRange(registrosPontoArquivo);               
 
+                foreach (var registro in registrosPontoArquivo)
+                {
+                    await _registroPontoService.Adicionar(registro);
+                }
+            }
 
-        //[Route("registar-ponto-colaboradores")]
-        //public async Task<IActionResult> ImportarRegistrosPonto(string folderPath)
-        //{
-        //    try
-        //    {
-        //        var files = Directory.GetFiles(folderPath, "*.csv");
+            
 
-        //        var allRegistroPontos = new List<RegistroPonto>();
-
-        //        foreach (var file in files)
-        //        {
-        //            using (var reader = new StreamReader(file))
-        //            using (var csvReader = new CsvReader(reader))
-        //            {
-        //                csvReader.Configuration.Delimiter = ";";
-        //                csvReader.Configuration.HeaderValidated = null;
-        //                csvReader.Configuration.MissingFieldFound = null;
-        //                var registroPontos = csvReader.GetRecords<RegistroPonto>().ToList();
-        //                allRegistroPontos.AddRange(registroPontos);
-        //            }
-        //        }
-
-        //        var resultado = new Resultado(allRegistroPontos);
-
-        //        var json = JsonConvert.SerializeObject(resultado);
-
-        //        return Content(json, "application/json");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
+            var registrosPontoSaida = _mapper.Map<List<RegistroPontoViewModel>>(registrosPonto);
 
 
+            return Json(registrosPontoSaida);
+            //return await DownloadRegistrosPontoJson(registrosPontoSaida, jsonSerializerSettings);
 
+        }
 
+        private async Task<List<RegistroPonto>> ImportarRegistrosPonto(string caminhoArquivo)
+        {
+            var registros = new List<RegistroPonto>();
 
+            try
+            {
+                byte[] bytes = await System.IO.File.ReadAllBytesAsync(caminhoArquivo);
+                using (var memoryStream = new MemoryStream(bytes))
+                using (var reader = new StreamReader(memoryStream))
+                using (var csv = new CsvReader(reader))
+                {
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.RegisterClassMap<RegistroPontoMap>();
+                    csv.Configuration.HeaderValidated = null; // Ignora validação de cabeçalho
+                    csv.Configuration.MissingFieldFound = null; // Ignora campos ausentes
+                    registros = csv.GetRecords<RegistroPonto>().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu um erro ao importar os registros de ponto: " + ex.Message);
+                return registros;
+            }
+
+            return registros;
+        }
 
 
         public async Task<IActionResult> DownloadRegistrosPontoJson(List<RegistroPontoViewModel> registrosPonto, JsonSerializerSettings jsonSerializerSettings)
@@ -115,56 +112,6 @@ namespace LH.App.Controllers
         }
 
 
-
-
-        [HttpPost]
-        public IActionResult ProcessarArquivos(string pasta)
-        {
-            var arquivos = LerArquivos(pasta);
-            // processar arquivos aqui
-            return View();
-        }
-
-        public static List<string> LerArquivos(string pasta)
-        {
-            var arquivos = new List<string>();
-            try
-            {
-                DirectoryInfo dinfo = new DirectoryInfo(pasta);
-                FileInfo[] Files = dinfo.GetFiles("*.csv");
-
-                foreach (FileInfo file in Files)
-                {
-                    arquivos.Add(file.FullName);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Ocorreu um erro: " + ex.Message);
-            }
-            return arquivos;
-        }
-
-        [Route("registar-ponto-colaboradores")]
-        [HttpPost]
-        public async Task<IActionResult> ImportarRegistrosPonto(string caminhoPasta)
-        {
-            var caminhoCompleto = Path.Combine(caminhoPasta, "*.csv");
-            var arquivos = Directory.GetFiles(caminhoPasta, "*.csv");
-            var listaDados = new List<RegistroPonto>();
-
-            foreach (var arquivo in arquivos)
-            {
-                using (var reader = new StreamReader(arquivo))
-                using (var csv = new CsvReader(reader))
-                {
-                    csv.Configuration.RegisterClassMap<RegistroPontoMap>();
-                    listaDados.AddRange(csv.GetRecords<RegistroPonto>());
-                }
-            }
-
-            return Json(listaDados);
-        }
 
         private static string ObterDepartamento(List<string> arquivos, RegistroPonto dado)
         {

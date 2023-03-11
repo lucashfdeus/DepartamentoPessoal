@@ -3,10 +3,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LH.Date.Migrations
 {
-    public partial class _inicial : Migration
+    public partial class _CriandoBancoDadosInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Departamentos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    NomeDepartamento = table.Column<string>(type: "varchar(200)", nullable: false),
+                    MesVigencia = table.Column<string>(type: "varchar(100)", nullable: false),
+                    AnoVigencia = table.Column<DateTimeOffset>(nullable: false),
+                    TotalPagar = table.Column<decimal>(nullable: false),
+                    TotalDescontos = table.Column<decimal>(nullable: false),
+                    TotalExtras = table.Column<decimal>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departamentos", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Fornecedores",
                 columns: table => new
@@ -20,6 +37,50 @@ namespace LH.Date.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Fornecedores", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RegistroPontos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Codigo = table.Column<int>(nullable: false),
+                    Nome = table.Column<string>(type: "varchar(200)", nullable: false),
+                    ValorHora = table.Column<decimal>(nullable: false),
+                    Data = table.Column<DateTime>(nullable: false),
+                    Entrada = table.Column<DateTime>(nullable: false),
+                    Saida = table.Column<DateTime>(nullable: false),
+                    Almoco = table.Column<TimeSpan>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistroPontos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Funcionario",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DepartamentoId = table.Column<Guid>(nullable: false),
+                    Codigo = table.Column<int>(nullable: false),
+                    Nome = table.Column<string>(type: "varchar(100)", nullable: true),
+                    TotalReceber = table.Column<decimal>(nullable: false),
+                    HorasExtras = table.Column<decimal>(nullable: false),
+                    HorasDebito = table.Column<decimal>(nullable: false),
+                    DiasFalta = table.Column<int>(nullable: false),
+                    DiasExtras = table.Column<int>(nullable: false),
+                    DiasTrabalhados = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funcionario", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Funcionario_Departamentos_DepartamentoId",
+                        column: x => x.DepartamentoId,
+                        principalTable: "Departamentos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,6 +139,11 @@ namespace LH.Date.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Funcionario_DepartamentoId",
+                table: "Funcionario",
+                column: "DepartamentoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Produtos_FornecedorId",
                 table: "Produtos",
                 column: "FornecedorId");
@@ -89,7 +155,16 @@ namespace LH.Date.Migrations
                 name: "Enderecos");
 
             migrationBuilder.DropTable(
+                name: "Funcionario");
+
+            migrationBuilder.DropTable(
                 name: "Produtos");
+
+            migrationBuilder.DropTable(
+                name: "RegistroPontos");
+
+            migrationBuilder.DropTable(
+                name: "Departamentos");
 
             migrationBuilder.DropTable(
                 name: "Fornecedores");

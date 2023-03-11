@@ -48,10 +48,11 @@
     </tbody>
 </table>
 
-    <form asp-controller="RegistroPonto" method="post" enctype="multipart/form-data" asp-action="ImportarRegistrosPonto" method="post">
-        <div class="form-group">
-            <label for="arquivo">Selecione o arquivo</label>
-            <input type="file" class="form-control-file" id="arquivo" name="arquivo">
-        </div>
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+<form asp-controller="RegistroPonto" method="post" asp-action="ProcessarArquivos">
+    <div class="form-group">
+        <label for="caminhoPasta">Caminho da pasta:</label>
+        <input type="text" name="caminhoPasta" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Processar arquivos</button>
+</form>
+
