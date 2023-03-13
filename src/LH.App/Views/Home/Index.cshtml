@@ -11,6 +11,15 @@
     </div>
 </div>
 
+<form asp-controller="RegistroPonto" method="post" asp-action="ProcessarArquivos">
+    <div class="form-group">
+        <label for="caminhoPasta">Caminho da pasta:</label>
+        <input type="text" name="caminhoPasta" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Processar arquivos</button>
+</form>
+
+
 <style>
     .apresentacaoHome {
         text-align: center; /* centraliza o conteúdo horizontalmente */

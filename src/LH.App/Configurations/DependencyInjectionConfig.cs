@@ -16,9 +16,6 @@ namespace LH.App.Configurations
         public static IServiceCollection ResolveDependecies(this IServiceCollection services)
         {
             services.AddScoped<ApplicationDbContext>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-            services.AddScoped<IEnderecoRepository, EnderecoRepositoty>();
             services.AddScoped<IRegistroPontoRepository, RegistroPontoRepository>();
             services.AddScoped<IDepartamentoRepository, DepartamentoRepository>();
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
@@ -26,8 +23,6 @@ namespace LH.App.Configurations
             services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
 
             services.AddScoped<INotificador, Notificador>();
-            services.AddScoped<IFornecedorService, FornecedorService>();
-            services.AddScoped<IProdutoService, ProdutoService>();
             services.AddScoped<IRegistroPontoService, RegistroPontoService>();
             services.AddScoped<IDepartamentoService, DepartamentoService>();
             services.AddScoped<IFuncionarioService, FuncionarioService>();

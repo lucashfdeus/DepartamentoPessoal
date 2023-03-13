@@ -8,9 +8,6 @@ namespace LH.App.AutoMapper
     {
         public AutoMapperConfig()
         {
-            CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap();
-            CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
-            CreateMap<Produto, ProdutoViewModel>().ReverseMap();
             CreateMap<RegistroPontoViewModel, RegistroPonto>().ReverseMap();
         }
     }

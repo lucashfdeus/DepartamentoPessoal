@@ -16,6 +16,7 @@ namespace LH.Business.Services
         private readonly IDepartamentoRepository _departamentoRepository;
         private readonly IRegistroPontoRepository _registroPontoRepository;
         private readonly IFuncionarioService _funcionarioService;
+        private readonly IFuncionarioRepository _funcionarioRepository;
 
         public DepartamentoService(IDepartamentoRepository departamentoRepository,
                                   INotificador notificador,
@@ -26,6 +27,7 @@ namespace LH.Business.Services
             _departamentoRepository = departamentoRepository;
             _registroPontoRepository = registroPontoRepository;
             _funcionarioService = funcionarioService;
+            _funcionarioRepository = funcionarioRepository;
         }
 
         public async Task Adicionar(Departamento departamento)
@@ -97,6 +99,12 @@ namespace LH.Business.Services
                 funcionario.DiasFalta = diasFaltantes;
                 funcionario.DiasTrabalhados = diasTrabalhados;
 
+                var func = await _funcionarioRepository.ObterPorId(funcionario.Id);
+
+                if (func != null)
+                {
+                    await _funcionarioRepository.Atualizar(funcionario);
+                }
                 await _funcionarioService.Adicionar(new List<Funcionario> { funcionario });
             }
 
@@ -148,6 +156,7 @@ namespace LH.Business.Services
 
             return (diasTrabalhados.Count(), diasFaltantes.Count());
         }
+
        
     }
 }

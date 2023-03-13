@@ -10,9 +10,6 @@ namespace LH.Date.Context
     {
         public AppRhContext(DbContextOptions options) : base(options) { }
 
-        public DbSet<Produto> Produtos { get; set; }
-        public DbSet<Endereco> Enderecos { get; set; }
-        public DbSet<Fornecedor> Fornecedores { get; set; }
         public DbSet<RegistroPonto> RegistroPontos { get; set; }
         public DbSet<Departamento> Departamentos { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }

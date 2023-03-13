@@ -25,7 +25,11 @@ namespace LH.App.Controllers
         private readonly IDepartamentoService _departamentoService;
 
 
-        public RegistroPontoController(IMapper mapper, INotificador notificador, IRegistroPontoService registroPontoService, IFuncionarioService funcionarioService, IDepartamentoService departamentoService) : base(notificador)
+        public RegistroPontoController(IMapper mapper, 
+            INotificador notificador,
+            IRegistroPontoService registroPontoService,
+            IFuncionarioService funcionarioService
+            , IDepartamentoService departamentoService) : base(notificador)
         {
             _mapper = mapper;
             _registroPontoService = registroPontoService;
