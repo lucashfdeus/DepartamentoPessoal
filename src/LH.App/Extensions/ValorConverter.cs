@@ -4,6 +4,8 @@ using CsvHelper.TypeConversion;
 using System.Text.RegularExpressions;
 using System.Globalization;
 using System;
+using System.Text;
+using System.Linq;
 
 namespace LH.App.Extensions
 {
@@ -17,11 +19,37 @@ namespace LH.App.Extensions
         }
     }
 
-    public sealed class ConverterHoras : DecimalConverter
+    public class StringConverter : DefaultTypeConverter
     {
-        public static TimeSpan AdicionarIntervalo(TimeSpan intervalo, TimeSpan tempo)
+        public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
-            return tempo.Add(intervalo);
+            if (string.IsNullOrWhiteSpace(text)) return null;
+
+            var cleanedText = new string(text
+                .Normalize(NormalizationForm.FormD)
+                .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark)
+                .ToArray());
+
+            return cleanedText;
         }
     }
+
+    public class IntervaloAlmocoTypeConverter : ITypeConverter
+    {
+        public object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
+        {
+            string[] partes = text.Split('-');
+            TimeSpan inicio = TimeSpan.Parse(partes[0].Trim());
+            TimeSpan fim = TimeSpan.Parse(partes[1].Trim());
+            TimeSpan intervaloAlmoco = fim - inicio;
+            return intervaloAlmoco;
+        }
+
+        public string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
+        {
+            return value.ToString();
+        }
+    }
+
+
 }

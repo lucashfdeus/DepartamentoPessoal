@@ -4,7 +4,9 @@ using LH.Business.Interfaces.Services;
 using LH.Business.Models;
 using LH.Business.Validations;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LH.Business.Services
@@ -19,9 +21,12 @@ namespace LH.Business.Services
             _funcionarioRepository = funcionarioRepository;
         }
 
-        public async Task Adicionar(Funcionario funcionario)
+        public async Task Adicionar(List<Funcionario> funcionarios)
         {
-          await _funcionarioRepository.Adicionar(funcionario);
+            foreach (var funcionario in funcionarios)
+            {
+                await _funcionarioRepository.Adicionar(funcionario);
+            }          
         }
 
         public async Task Atualizar(Funcionario funcionario)

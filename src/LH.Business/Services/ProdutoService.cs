@@ -38,6 +38,6 @@ namespace LH.Business.Services
         public void Dispose()
         {
             _produtoRepository?.Dispose();
-        }
+        }       
     }
 }

@@ -9,7 +9,7 @@ namespace LH.Business.Models
     {
         public string NomeDepartamento { get; set; }
         public string MesVigencia { get; set; }
-        public DateTimeOffset AnoVigencia { get; set; }
+        public int AnoVigencia { get; set; }
         public decimal TotalPagar { get; set; }
         public decimal TotalDescontos { get; set; }
         public decimal TotalExtras { get; set; }

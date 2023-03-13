@@ -24,7 +24,7 @@ namespace LH.Date.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTimeOffset>("AnoVigencia");
+                    b.Property<int>("AnoVigencia");
 
                     b.Property<string>("MesVigencia")
                         .IsRequired()
@@ -125,9 +125,9 @@ namespace LH.Date.Migrations
 
                     b.Property<int>("DiasTrabalhados");
 
-                    b.Property<decimal>("HorasDebito");
+                    b.Property<double>("HorasDebito");
 
-                    b.Property<decimal>("HorasExtras");
+                    b.Property<double>("HorasExtras");
 
                     b.Property<string>("Nome")
                         .IsRequired()

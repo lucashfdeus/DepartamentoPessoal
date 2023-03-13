@@ -36,7 +36,7 @@ namespace LH.Business.Services
         public async Task Remover(Guid id)
         {
             await _registroPontoRepository.Remover(id);
-        }
+        }        
 
         public void Dispose()
         {

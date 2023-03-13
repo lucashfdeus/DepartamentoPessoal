@@ -16,6 +16,6 @@ namespace LH.Date.Repository
             return await Db.RegistroPontos
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.Id == id);
-        }
+        }        
     }
 }

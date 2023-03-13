@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LH.Date.Migrations
 {
-    public partial class _Inicial : Migration
+    public partial class _BancoDeDadosInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace LH.Date.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     NomeDepartamento = table.Column<string>(type: "varchar(200)", nullable: false),
                     MesVigencia = table.Column<string>(type: "varchar(100)", nullable: false),
-                    AnoVigencia = table.Column<DateTimeOffset>(nullable: false),
+                    AnoVigencia = table.Column<int>(nullable: false),
                     TotalPagar = table.Column<decimal>(nullable: false),
                     TotalDescontos = table.Column<decimal>(nullable: false),
                     TotalExtras = table.Column<decimal>(nullable: false)
@@ -66,8 +66,8 @@ namespace LH.Date.Migrations
                     Codigo = table.Column<int>(nullable: false),
                     Nome = table.Column<string>(type: "varchar(200)", nullable: false),
                     TotalReceber = table.Column<decimal>(nullable: false),
-                    HorasExtras = table.Column<decimal>(nullable: false),
-                    HorasDebito = table.Column<decimal>(nullable: false),
+                    HorasExtras = table.Column<double>(nullable: false),
+                    HorasDebito = table.Column<double>(nullable: false),
                     DiasFalta = table.Column<int>(nullable: false),
                     DiasExtras = table.Column<int>(nullable: false),
                     DiasTrabalhados = table.Column<int>(nullable: false)

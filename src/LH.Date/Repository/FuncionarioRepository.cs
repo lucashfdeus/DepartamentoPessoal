@@ -17,6 +17,6 @@ namespace LH.Date.Repository
             return await Db.Funcionarios
                 .AsNoTracking()
                 .FirstOrDefaultAsync (c => c.Id == id);
-        }
+        }       
     }
 }

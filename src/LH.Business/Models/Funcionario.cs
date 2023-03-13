@@ -10,8 +10,8 @@ namespace LH.Business.Models
         public int Codigo { get; set; }
         public string Nome { get; set; }
         public decimal TotalReceber { get; set; }
-        public decimal HorasExtras { get; set; }
-        public decimal HorasDebito { get; set; }
+        public double HorasExtras { get; set; }
+        public double HorasDebito { get; set; }
         public int DiasFalta { get; set; }
         public int DiasExtras { get; set; }
         public int DiasTrabalhados { get; set; }

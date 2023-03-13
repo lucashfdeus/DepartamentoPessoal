@@ -17,6 +17,14 @@ namespace LH.Date.Repository
                 .AsNoTracking()
                 .Include(p => p.Funcionarios)
                 .FirstOrDefaultAsync(p => p.Id == id);
-        }        
+        }
+
+        public async Task<Departamento> ObterDepartamentoNome(string nomeDepartamento)
+        {
+            return await Db.Departamentos
+                 .AsNoTracking()
+                 .Include(f => f.Funcionarios)
+                 .FirstOrDefaultAsync(f => f.NomeDepartamento == nomeDepartamento) ;
+        }
     }
 }

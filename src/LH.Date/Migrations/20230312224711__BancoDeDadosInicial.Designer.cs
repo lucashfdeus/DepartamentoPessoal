@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LH.Date.Migrations
 {
     [DbContext(typeof(AppRhContext))]
-    [Migration("20230311195138__Inicial")]
-    partial class _Inicial
+    [Migration("20230312224711__BancoDeDadosInicial")]
+    partial class _BancoDeDadosInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,7 +26,7 @@ namespace LH.Date.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTimeOffset>("AnoVigencia");
+                    b.Property<int>("AnoVigencia");
 
                     b.Property<string>("MesVigencia")
                         .IsRequired()
@@ -127,9 +127,9 @@ namespace LH.Date.Migrations
 
                     b.Property<int>("DiasTrabalhados");
 
-                    b.Property<decimal>("HorasDebito");
+                    b.Property<double>("HorasDebito");
 
-                    b.Property<decimal>("HorasExtras");
+                    b.Property<double>("HorasExtras");
 
                     b.Property<string>("Nome")
                         .IsRequired()
